@@ -162,18 +162,3 @@ EMSI Casablanca – Génie Informatique
 ⭐ Recommandation
 Si le projet t’a aidé → n’oublie pas de star ⭐ sur GitHub !
 
-arduino
-Copy code
-https://github.com/WalidBenazzouz/APPLICATION---SPRING-DATA-REST--GRAPHQL
-yaml
-Copy code
-
----
-
-Tu veux maintenant :
-
-1) **Un rapport PDF** prêt à imprimer ?  
-2) **Des captures d’écran annotées** pour ton rendu ?  
-3) **Une vidéo démonstration scriptée** ?
-
-Répond juste **1**, **2** ou **3** 🎯
