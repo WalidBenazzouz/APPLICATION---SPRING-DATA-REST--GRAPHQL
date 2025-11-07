@@ -1,0 +1,32 @@
+type Query {
+    listEtudiants: [Etudiant]
+    centres: [Centre]
+}
+
+type Mutation {
+    addEtudiant(etudiant: EtudiantInput!): Etudiant
+}
+
+type Etudiant {
+    id: ID
+    nom: String
+    prenom: String
+    genre: Genre
+    centre: Centre
+}
+
+type Centre {
+    id: ID
+    nom: String
+    adresse: String
+    listEtudiants: [Etudiant]
+}
+
+input EtudiantInput {
+    nom: String
+    prenom: String
+    genre: Genre
+    centreId: ID
+}
+
+enum Genre { Homme Femme }
