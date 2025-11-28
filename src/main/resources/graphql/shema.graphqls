@@ -7,7 +7,12 @@ type Query {
 type Mutation {
     addEtudiant(etudiant: EtudiantDTO!): Etudiant
     updateEtudiant(id: ID, etudiant: EtudiantDTO!): Etudiant
-    deleteEtudiant(id: ID): Boolean
+    deleteEtudiant(id: ID): String
+}
+
+type Subscription {
+    etudiantAdded: Etudiant
+    etudiantRemoved: String
 }
 
 type Etudiant {

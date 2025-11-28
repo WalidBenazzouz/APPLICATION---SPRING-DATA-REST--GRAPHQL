@@ -1,60 +1,64 @@
 package ma.emsi.benazzouzwalid.tp1graphql.web;
 
-import ma.emsi.benazzouzwalid.tp1graphql.entity.*;
 import ma.emsi.benazzouzwalid.tp1graphql.dto.EtudiantDTO;
-import ma.emsi.benazzouzwalid.tp1graphql.repository.*;
+import ma.emsi.benazzouzwalid.tp1graphql.entity.Centre;
+import ma.emsi.benazzouzwalid.tp1graphql.entity.Etudiant;
+import ma.emsi.benazzouzwalid.tp1graphql.service.CentreService;
+import ma.emsi.benazzouzwalid.tp1graphql.service.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.graphql.data.method.annotation.*;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
 import org.springframework.stereotype.Controller;
+import reactor.core.publisher.Flux;
+
 import java.util.List;
 
 @Controller
 public class EtudiantGraphQLController {
     @Autowired
-    private EtudiantRepository etRepo;
+    private EtudiantService etudiantService;
     @Autowired
-    private CentreRepository ceRepo;
-    @Autowired
-    private ma.emsi.benazzouzwalid.tp1graphql.mapper.DtoToEtudiant mapper;
+    private CentreService centreService;
 
     @QueryMapping
     public List<Etudiant> listEtudiants() {
-        return etRepo.findAll();
+        return etudiantService.getStudents();
     }
 
     @QueryMapping
     public List<Centre> centres() {
-        return ceRepo.findAll();
+        return centreService.getCentres();
     }
 
     @QueryMapping
     public Etudiant getEtudiantById(@Argument Long id) {
-        return etRepo.findById(id).orElse(null);
+        return etudiantService.getEtudiant(id);
     }
 
     @MutationMapping
     public Etudiant addEtudiant(@Argument EtudiantDTO etudiant) {
-        Etudiant e = new Etudiant();
-        mapper.toEtudiant(e, etudiant);
-        return etRepo.save(e);
+        return etudiantService.addEtudiant(etudiant);
     }
 
     @MutationMapping
     public Etudiant updateEtudiant(@Argument Long id, @Argument EtudiantDTO etudiant) {
-        Etudiant e = etRepo.findById(id).orElse(null);
-        if (e != null) {
-            mapper.toEtudiant(e, etudiant);
-            return etRepo.save(e);
-        }
-        return null;
+        return etudiantService.updateEtudiant(id, etudiant);
     }
 
     @MutationMapping
-    public Boolean deleteEtudiant(@Argument Long id) {
-        if (etRepo.existsById(id)) {
-            etRepo.deleteById(id);
-            return true;
-        }
-        return false;
+    public String deleteEtudiant(@Argument Long id) {
+        return etudiantService.deleteEtudiant(id);
+    }
+
+    @SubscriptionMapping
+    public Flux<Etudiant> etudiantAdded() {
+        return etudiantService.getEtudiantAdded();
+    }
+
+    @SubscriptionMapping
+    public Flux<String> etudiantRemoved() {
+        return etudiantService.etudiantRemoved();
     }
 }
