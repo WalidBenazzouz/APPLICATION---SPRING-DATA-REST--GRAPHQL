@@ -1,10 +1,13 @@
 type Query {
     listEtudiants: [Etudiant]
     centres: [Centre]
+    getEtudiantById(id: ID): Etudiant
 }
 
 type Mutation {
-    addEtudiant(etudiant: EtudiantInput!): Etudiant
+    addEtudiant(etudiant: EtudiantDTO!): Etudiant
+    updateEtudiant(id: ID, etudiant: EtudiantDTO!): Etudiant
+    deleteEtudiant(id: ID): Boolean
 }
 
 type Etudiant {
@@ -22,7 +25,7 @@ type Centre {
     listEtudiants: [Etudiant]
 }
 
-input EtudiantInput {
+input EtudiantDTO {
     nom: String
     prenom: String
     genre: Genre
