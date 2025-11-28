@@ -23,13 +23,18 @@ public class EtudiantGraphQLController {
     private CentreService centreService;
 
     @QueryMapping
-    public List<Etudiant> listEtudiants() {
+    public List<Etudiant> getAllEtudiants() {
         return etudiantService.getStudents();
     }
 
     @QueryMapping
-    public List<Centre> centres() {
+    public List<Centre> getAllCentres() {
         return centreService.getCentres();
+    }
+
+    @QueryMapping
+    public Centre getCentreById(@Argument Long id) {
+        return centreService.getCentre(id);
     }
 
     @QueryMapping

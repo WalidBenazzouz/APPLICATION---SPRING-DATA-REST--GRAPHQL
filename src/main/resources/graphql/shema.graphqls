@@ -1,7 +1,8 @@
 type Query {
-    listEtudiants: [Etudiant]
-    centres: [Centre]
+    getAllEtudiants: [Etudiant]
+    getAllCentres: [Centre]
     getEtudiantById(id: ID): Etudiant
+    getCentreById(id: ID): Centre
 }
 
 type Mutation {
